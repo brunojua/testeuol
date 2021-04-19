@@ -1,28 +1,44 @@
 import { Component, OnInit } from '@angular/core';
+// import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GithubService } from 'src/app/services/github.service';
 
 @Component({
-  selector: 'app-busca',
-  templateUrl: './busca.component.html',
-  styleUrls: ['./busca.component.scss']
+	selector: 'app-busca',
+	templateUrl: './busca.component.html',
+	styleUrls: ['./busca.component.scss']
 })
+
 export class BuscaComponent implements OnInit {
 
-  constructor(
-    private gitService: GithubService
-  ) { }
+	queryForm: any = { q: null };
+	buscando: boolean = false;
+	usuarios: any = [];
 
-  ngOnInit(): void {
-  }
+	constructor(
+		private gitService: GithubService,
+		// private formBuilder: FormBuilder
+	) { }
 
-  busca() {
-    this.gitService.buscaUsuarios({q: 'bruno'}).subscribe(
-      res => {
+	ngOnInit(): void {
+		// this.queryForm = this.formBuilder.group({
+		// 	q: [null]
+		// })
+	}
 
-      }, error => {
-        
-      }
-    )
-  }
+	busca() {
+		console.log(this.queryForm);
+
+		this.buscando = true;
+		
+		this.gitService.buscaUsuarios(this.queryForm).subscribe(
+			res => {
+				this.buscando = false;
+				this.usuarios = res;
+				console.log(this.usuarios);				
+			}, error => {
+				this.buscando = false;
+			}
+		)
+	}
 
 }

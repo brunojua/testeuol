@@ -1,4 +1,60 @@
-<p>busca works!</p>
+<div class="p-4">
+    <h4>Informe um nome para pesquisa</h4>
+    
+    <form class="form-inline mt-3">
+        <div class="form-group mb-2 mr-3">
+          <input type="text" class="form-control" placeholder="Nome de usuário" [(ngModel)]="queryForm.q" name="q">
+        </div>
+    
+        <button class="btn btn-primary mb-2" (click)="busca()" [disabled]="buscando">
+            Pesquisar
+            <div class="spinner-border spinner-border-sm text-light" role="status" *ngIf="buscando">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </button>
+    </form>
 
-<input type="text" />
-<button (click)="busca()" class="btn btn-primary">Buscar</button>
+    <div *ngIf="usuarios && usuarios.items">
+        <h6 class="text-left mt-4" >Encontrado {{ usuarios.total_count }} resultados. Exibindo 30</h6>
+    
+        <div class="w-100 af-box-resultados">
+            <table class="table table-striped table-striped-sm text-left mt-3">
+                <thead style="font-size: medium;">
+                    <tr>
+                        <th scope="col">
+                            <!-- <div class="form-check">
+                                <input class="form-check-input af-checkbox" [(ngModel)]="marcarTodos" (ngModelChange)="addInteresseASelecao(interesse, i)" type="checkbox" value="i" id="defaultCheck1">
+                            </div> -->
+                        </th>
+                        <th scope="col">Nome do usuário</th>
+                        <!-- <th scope="col">Tamanho do público</th>
+                        <th scope="col">Tópico</th>
+                        <th scope="col">Buscar</th> -->
+                    </tr>
+                </thead>
+                
+                <tbody style="font-size: small;">
+                    <tr *ngFor="let usuario of usuarios.items; index as i">
+                        <td>
+                            <!-- <div class="form-check">
+                                <input class="form-check-input af-checkbox" [(ngModel)]="lista.data[i].marcado" (ngModelChange)="addInteresseASelecao(interesse, i)" type="checkbox" value="i" id="defaultCheck1">
+                            </div> -->
+    
+                            <img src="{{ usuario.avatar_url }}" height="30" class="avatar" />
+                        </td>
+                        <td>{{ usuario.login }}</td>
+                        <!-- <td>{{ usuario.audience_size | number }}</td>
+                        <td>{{ usuario.topic || 'Sem categoria' }}</td>
+                        <td>
+                            <img src="assets/facebook.svg" height="20" class="af-icon-button mr-3" (click)="pesquisarFacebook(interesse)">
+                            <img src="assets/google.svg" height="20" class="af-icon-button mr-3" (click)="pesquisarGoogle(interesse)">
+                            <img src="assets/search.svg" height="20" class="af-icon-button" (click)="pesquisarAudienceFinder(interesse)">
+                        </td> -->
+                    </tr>
+                </tbody>                        
+            </table>
+        </div>
+    </div>
+
+</div>
+
