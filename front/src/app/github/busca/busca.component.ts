@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GithubService } from 'src/app/services/github.service';
 
 @Component({
   selector: 'app-busca',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BuscaComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private gitService: GithubService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  busca() {
+    this.gitService.buscaUsuarios({q: 'bruno'}).subscribe(
+      res => {
+
+      }, error => {
+        
+      }
+    )
   }
 
 }
