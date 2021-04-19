@@ -10,10 +10,15 @@ import { GithubService } from 'src/app/services/github.service';
 
 export class BuscaComponent implements OnInit {
 
-	queryForm: any = { q: null };
-	buscando: boolean = false;
-	usuarios: any = [];
+	// queryForm: any = { q: null };
+	// usuarios: any = [];
 
+	query: any = '';
+	usuario: any;
+	buscando: boolean = false;
+	mostrarErro: boolean = false;
+	msgErro: string;
+	
 	constructor(
 		private gitService: GithubService,
 		// private formBuilder: FormBuilder
@@ -26,19 +31,33 @@ export class BuscaComponent implements OnInit {
 	}
 
 	busca() {
-		console.log(this.queryForm);
+		console.log(this.query);
 
 		this.buscando = true;
 		
-		this.gitService.buscaUsuarios(this.queryForm).subscribe(
+		this.gitService.getUsuario(this.query).subscribe(
 			res => {
+				console.log(this.usuario);
 				this.buscando = false;
-				this.usuarios = res;
-				console.log(this.usuarios);				
+				this.usuario = res;
 			}, error => {
+				console.log(error);
 				this.buscando = false;
+				this.usuario = null;
+				this.mostrarErro = true;
+				this.msgErro = error.error.message || 'Aconteceu um erro, Tente novamente!';
 			}
 		)
+
+		// this.gitService.buscaUsuarios(this.queryForm).subscribe(
+		// 	res => {
+		// 		this.buscando = false;
+		// 		this.usuarios = res;
+		// 		console.log(this.usuarios);				
+		// 	}, error => {
+		// 		this.buscando = false;
+		// 	}
+		// )
 	}
 
 }

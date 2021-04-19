@@ -21,18 +21,19 @@ export class LoginComponent implements OnInit {
         this.auth.authenticate(queryParams.code).subscribe(
           res => {
             console.log('OK', res);
-            this.router.navigate(['/github'])
+            this.router.navigate(['/github/busca']);
           },
           err => {
             console.log('ERR', err);
-            this.router.navigate(['/login'])
+            this.router.navigate(['/login']);
           }
         )
         // .then((data) => {
         //   console.log(data)
         // }).catch(err => console.log(err));
       }
-    })
+    });
+
   }
 
   login() {
