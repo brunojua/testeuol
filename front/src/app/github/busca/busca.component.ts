@@ -18,6 +18,12 @@ export class BuscaComponent implements OnInit {
 	buscando: boolean = false;
 	mostrarErro: boolean = false;
 	msgErro: string;
+
+	buscandoRepos: boolean = false;
+	repos: any;
+
+	buscandoStarred: boolean = false;
+	starreds: any;
 	
 	constructor(
 		private gitService: GithubService,
@@ -40,6 +46,8 @@ export class BuscaComponent implements OnInit {
 				console.log(this.usuario);
 				this.buscando = false;
 				this.usuario = res;
+				this.repos = null;
+				this.starreds = null;
 			}, error => {
 				console.log(error);
 				this.buscando = false;
@@ -58,6 +66,37 @@ export class BuscaComponent implements OnInit {
 		// 		this.buscando = false;
 		// 	}
 		// )
+	}
+
+	getRepos() {
+		this.buscandoRepos = true;
+		
+		this.gitService.getRepos(this.usuario.login).subscribe(
+			(res: any) => {
+				this.starreds = null;
+				this.buscandoRepos = false;
+				this.repos = res.slice(0,5);
+			}, error => {
+				console.log(error);
+				this.buscandoRepos = false;
+				this.repos = null;
+			}
+		)
+	}
+
+	getStarred() {
+		this.buscandoStarred = true;
+		
+		this.gitService.getStarred(this.usuario.login).subscribe(
+			(res: any) => {
+				this.repos = null;
+				this.buscandoStarred = false;
+				this.starreds = res.slice(0,5);
+			}, error => {
+				console.log(error);
+				this.buscandoStarred = false;
+			}
+		)
 	}
 
 }

@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
         this.auth.authenticate(queryParams.code).subscribe(
           res => {
             console.log('OK', res);
-            this.router.navigate(['/github/busca']);
+            this.router.navigate(['/github']);
           },
           err => {
             console.log('ERR', err);

@@ -34,12 +34,54 @@
                     <div>
                         <img src="{{ usuario.avatar_url }}" height="120" class="avatar" />
                     </div>
-                    <h4 class="mt-3">{{ usuario.name }}</h4>
+                    <h4 class="mt-3">{{ usuario.name || usuario.login }}</h4>
                     <p>
                         {{ usuario.followers }} Seguidores &bull;
                         {{ usuario.following }} Seguindo &bull;
                         {{ usuario.public_repos }} Repositórios
                     </p>
+
+                    <div class="mt-3">
+                        <button class="btn btn-sm btn-light mr-3" (click)="getRepos()" [disabled]="buscandoRepos">
+                            Repos
+                            <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="buscandoRepos">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
+
+                        <button class="btn btn-sm btn-light mr-3" (click)="getStarred()" [disabled]="buscandoStarred">
+                            Starred
+                            <div class="spinner-border spinner-border-sm text-primary" role="status" *ngIf="buscandoStarred">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </button>
+
+                        <button class="btn btn-sm btn-light" [routerLink]="['/github/perfil/', usuario.login]" routerLinkActive="router-link-active" >Perfil Completo</button>
+                    </div>                    
+                </div>
+
+                <div *ngIf="repos" class="mt-3">
+                    <h5 class="text-left">Repositórios</h5>
+
+                    <ul class="list-group text-left mt-2">
+                        <li class="list-group-item" *ngFor="let repo of repos">
+                            <a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a>
+                            <span class="mx-2">&#x2605;{{ repo.stargazers_count }}</span>
+                            <span>&#9798;{{ repo.forks_count }}</span>                            
+                        </li>
+                    </ul>
+                </div>
+
+                <div *ngIf="starreds" class="mt-3">
+                    <h5 class="text-left">Repositórios com estrela</h5>
+
+                    <ul class="list-group text-left mt-2">
+                        <li class="list-group-item" *ngFor="let starred of starreds">
+                            <a href="{{ starred.html_url }}" target="_blank">{{ starred.name }}</a>
+                            <span class="mx-2">&#x2605;{{ starred.stargazers_count }}</span>
+                            <span>&#9798;{{ starred.forks_count }}</span>                            
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- <div *ngIf="usuarios && usuarios.items">

@@ -4,39 +4,58 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class GithubService {
-  public baseUrl = 'https://api.github.com/';
-  constructor(private http: HttpClient) { }
+	public baseUrl = 'https://api.github.com/';
+	constructor(private http: HttpClient) { }
 
-  _formatarParametros(params: any){
-    return new URLSearchParams(params).toString();
-  }
+	_formatarParametros(params: any) {
+		return new URLSearchParams(params).toString();
+	}
 
-  getUsuario(usuario: string) {
-    let req = this.http.get(this.baseUrl + 'users/' + usuario);
-    req.pipe(
-      map((data: any) => {
-        console.log(data);        
-      })
-    )
-    return req;
+	getUsuario(usuario: string) {
+		let req = this.http.get(this.baseUrl + 'users/' + usuario);
+		req.pipe(
+			map((data: any) => {
+				console.log(data);
+			})
+		)
+		return req;
+	}
 
-  }
+	getRepos(usuario: string) {
+		let req = this.http.get(this.baseUrl + 'users/' + usuario + '/repos');
+		req.pipe(
+			map((data: any) => {
+				console.log(data);
+			})
+		)
+		return req;
+	}
 
-  buscaUsuarios(params: any) {
-    let url = this.baseUrl + 'search/users?';
+	getStarred(usuario: string) {
+		let req = this.http.get(this.baseUrl + 'users/' + usuario + '/starred');
+		req.pipe(
+			map((data: any) => {
+				console.log(data);
+			})
+		)
+		return req;
+	}
 
-    url += this._formatarParametros(params);
+	// buscaUsuarios(params: any) {
+	// 	let url = this.baseUrl + 'search/users?';
 
-    let req = this.http.get(url.toString());
-    req.pipe(
-      map((data: any) => {
-        console.log(data);    
-      })
-    )
-    return req;
+	// 	url += this._formatarParametros(params);
 
-  }
+	// 	let req = this.http.get(url.toString());
+	// 	req.pipe(
+	// 		map((data: any) => {
+	// 			console.log(data);
+	// 		})
+	// 	)
+	// 	return req;
+
+	// }
 }

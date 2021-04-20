@@ -9,8 +9,9 @@ const routes: Routes = [
   { 
     path: '', component: GithubComponent,
     children: [
+      { path: '', redirectTo: 'busca' },
       { path: 'busca', component: BuscaComponent },
-      { path: 'perfil', component: PerfilComponent }
+      { path: 'perfil/:user', component: PerfilComponent }
     ]
   },
   

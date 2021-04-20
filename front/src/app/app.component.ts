@@ -22,7 +22,7 @@ export class AppComponent {
 
 				if (this.location.path() == '' || this.location.path() == '/') {
 					if (this.auth.isAuthenticated()) {
-						this.router.navigate(['github/busca'])
+						this.router.navigate(['github'])
 					} else {
 						this.router.navigate(['login'])
 					}
