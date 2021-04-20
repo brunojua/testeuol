@@ -61,19 +61,25 @@
                 </div>
 
                 <div *ngIf="repos" class="mt-3">
-                    <h5 class="text-left">Repositórios</h5>
+                    <h5 class="text-left mb-0 pb-0">Repositórios</h5>
+                    <div class="d-block-inline text-left">
+                        <small class="text-dark">* Para ver todos clique em "Perfil completo"</small>
+                    </div>
 
                     <ul class="list-group text-left mt-2">
                         <li class="list-group-item" *ngFor="let repo of repos">
                             <a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a>
                             <span class="mx-2">&#x2605;{{ repo.stargazers_count }}</span>
-                            <span>&#9798;{{ repo.forks_count }}</span>                            
+                            <span>&#9798;{{ repo.forks_count }}</span>
                         </li>
                     </ul>
                 </div>
 
                 <div *ngIf="starreds" class="mt-3">
-                    <h5 class="text-left">Repositórios com estrela</h5>
+                    <h5 class="text-left mb-0 pb-0">Starred</h5>
+                    <div class="d-block-inline text-left">
+                        <small class="text-dark">* Para ver todos clique em "Perfil completo"</small>
+                    </div>
 
                     <ul class="list-group text-left mt-2">
                         <li class="list-group-item" *ngFor="let starred of starreds">

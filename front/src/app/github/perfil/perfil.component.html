@@ -1,7 +1,99 @@
-<div class="p-4">
+<div class="p-3">
 
-    <button class="btn btn-primary text-white" (click)="goBack()">
+    <button class="btn btn-primary btn-sm text-white" (click)="goBack()">
         <span style="font-size: 25px; vertical-align: middle; line-height: 16px;">&#8678;</span> Retornar
     </button>
+
+    <div class="mt-4">
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-4 text-center mb-3">
+
+                <div class="bg-light rounded border p-4">
+                    <div>
+                        <img src="{{ usuario?.avatar_url }}" height="250" class="avatar" />
+                    </div>
+
+                    <h4 class="mt-3">{{ usuario.name || usuario.login }}</h4>
+
+                    <p>
+                        {{ usuario.followers }} Seguidores &bull;
+                        {{ usuario.following }} Seguindo &bull;
+                        {{ usuario.public_repos }} Repositórios
+                    </p>
+
+                    <div class="text-left">
+                        <div><small>Bio: {{ usuario.bio || 'Não informado' }}</small></div>
+                        <div><small>Email: {{ usuario.email || 'Não informado' }}</small></div>
+                        <div><small>Blog: <a href="{{ usuario.blog }}" target="_blanked">{{ usuario.blog || 'Não informado' }}</a></small></div>
+                        <div><small>Organização: {{ usuario.company || 'Não informado' }}</small></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-4 mb-3">
+
+                <div class="bg-light rounded border p-4 box-repositorios">
+                    <h4>Repositórios</h4>
+
+                    <div class="mt-3 card" *ngFor="let repo of repos">    
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ repo.html_url }}" target="_blanked">{{ repo.name }}</a>
+                            </h5>
+    
+                            <span class="card-text"><small>{{ repo.description }}</small></span>
+
+                            <div class="mt-2">
+                                <small>
+                                    <span class="badge badge-secondary">{{ repo.language }}</span>
+                                    <span class="mx-2">&#x2605;{{ repo.stargazers_count }}</span>
+                                    <span>&#9798;{{ repo.forks_count }}</span>
+                                </small>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+
+                <div class="bg-light rounded border p-4 box-repositorios">
+                    <h4>Starred</h4>
+
+                    <div class="mt-3 card" *ngFor="let starred of starreds">
+    
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ starred.html_url }}" target="_blanked">{{ starred.name }}</a>
+                            </h5>
+    
+                            <span class="card-text"><small>{{ starred.description }}</small></span>
+
+                            <div class="mt-2">
+                                <small>
+                                    <span class="badge badge-secondary">{{ starred.language }}</span>
+                                    <span class="mx-2">&#x2605;{{ starred.stargazers_count }}</span>
+                                    <span>&#9798;{{ starred.forks_count }}</span>
+                                </small>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
